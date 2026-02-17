@@ -926,7 +926,7 @@
 
         <div class="quiz-container">
             <div data-view="player" class="is-active">
-                <p style="color: var(--color-text-secondary);">Hallo + Platz 3 und 4 zahlen jeweils eine Runde Kölsch.</p>
+                <p style="color: var(--color-text-secondary);">House rule: 3rd and 4th place buy a round of Kölsch.</p>
                 <div class="quiz-player-grid">
                     <button type="button" class="quiz-button" data-action="select-player" data-player="Adriana">Adriana</button>
                     <button type="button" class="quiz-button" data-action="select-player" data-player="Freddy">Freddy</button>
@@ -944,22 +944,22 @@
                     <p id="quiz-feedback-fact"></p>
                 </div>
                 <div class="quiz-actions">
-                    <button type="button" class="quiz-button" id="quiz-next" data-action="next" disabled>Weiter</button>
-                    <button type="button" class="quiz-button" data-action="back">Zur Spieler-Auswahl</button>
+                    <button type="button" class="quiz-button" id="quiz-next" data-action="next" disabled>Next</button>
+                    <button type="button" class="quiz-button" data-action="back">Back to players</button>
                 </div>
             </div>
 
             <div data-view="result">
                 <p id="quiz-result" aria-live="polite"></p>
                 <div class="quiz-actions">
-                    <button type="button" class="quiz-button" data-action="back">Zur Spieler-Auswahl</button>
-                    <button type="button" class="quiz-button" data-action="toggle-ranking">Ranking anzeigen</button>
+                    <button type="button" class="quiz-button" data-action="back">Back to players</button>
+                    <button type="button" class="quiz-button" data-action="toggle-ranking">Show ranking</button>
                 </div>
                 <div id="quiz-ranking" class="is-hidden" aria-hidden="true">
-                    <p id="quiz-ranking-note">Ranking gilt pro Gerät/Browser.</p>
-                    <p id="quiz-ranking-empty">Noch keine Ergebnisse vorhanden.</p>
+                    <p id="quiz-ranking-note">Ranking is saved on this device/browser.</p>
+                    <p id="quiz-ranking-empty">No results yet.</p>
                     <ol id="quiz-ranking-list"></ol>
-                    <button type="button" class="quiz-button" data-action="reset-ranking">Ranking zurücksetzen</button>
+                    <button type="button" class="quiz-button" data-action="reset-ranking">Reset ranking</button>
                     <p id="quiz-ranking-message" aria-live="polite"></p>
                 </div>
             </div>
@@ -1177,7 +1177,7 @@
                 clearFeedback();
                 state.answered = false;
                 const question = QUESTIONS[state.qIndex];
-                root.querySelector('#quiz-progress').textContent = `Frage ${state.qIndex + 1}/${QUESTIONS.length}`;
+                root.querySelector('#quiz-progress').textContent = `Question ${state.qIndex + 1}/${QUESTIONS.length}`;
                 root.querySelector('#quiz-question').textContent = question.text;
                 const options = root.querySelector('#quiz-options');
                 options.textContent = '';
@@ -1208,10 +1208,10 @@
 
                 if (selectedIndex !== question.correctIndex) {
                     button.classList.add('wrong');
-                    root.querySelector('#quiz-feedback-title').textContent = `Leider falsch. Richtig wäre: ${question.options[question.correctIndex]}`;
+                    root.querySelector('#quiz-feedback-title').textContent = `Not quite. Correct answer: ${question.options[question.correctIndex]}`;
                 } else {
                     state.score += 1;
-                    root.querySelector('#quiz-feedback-title').textContent = 'Richtig!';
+                    root.querySelector('#quiz-feedback-title').textContent = 'Correct!';
                 }
 
                 root.querySelector('#quiz-feedback-fact').textContent = question.fact;
@@ -1245,7 +1245,7 @@
 
                 list.textContent = '';
                 if (!sorted.length) {
-                    emptyState.textContent = 'Noch keine Ergebnisse vorhanden.';
+                    emptyState.textContent = 'No results yet.';
                     emptyState.hidden = false;
                     return;
                 }
@@ -1259,7 +1259,7 @@
                     }
                     list.appendChild(item);
                 });
-                ranking.querySelector('#quiz-ranking-note').textContent = 'Ranking gilt pro Gerät/Browser.';
+                ranking.querySelector('#quiz-ranking-note').textContent = 'Ranking is saved on this device/browser.';
             };
 
             const toggleRanking = () => {
@@ -1267,7 +1267,7 @@
                 const ranking = root.querySelector('#quiz-ranking');
                 ranking.classList.toggle('is-hidden', !isRankingVisible);
                 ranking.setAttribute('aria-hidden', String(!isRankingVisible));
-                root.querySelector('[data-action="toggle-ranking"]').textContent = isRankingVisible ? 'Ranking ausblenden' : 'Ranking anzeigen';
+                root.querySelector('[data-action="toggle-ranking"]').textContent = isRankingVisible ? 'Hide ranking' : 'Show ranking';
                 root.querySelector('#quiz-ranking-message').textContent = '';
                 if (isRankingVisible) renderRanking();
             };
@@ -1276,7 +1276,7 @@
                 localStorage.removeItem(STORAGE_KEY);
                 scoresByPlayer = {};
                 renderRanking();
-                root.querySelector('#quiz-ranking-message').textContent = 'Ranking wurde zurückgesetzt.';
+                root.querySelector('#quiz-ranking-message').textContent = 'Ranking has been reset.';
             };
 
             const goNext = () => {
