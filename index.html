@@ -552,6 +552,38 @@
             margin-bottom: 1.25rem;
         }
 
+        #quiz #quiz-ranking {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            background: var(--color-bg-tertiary);
+            border: 1px solid var(--color-border);
+        }
+
+        #quiz #quiz-ranking.is-hidden {
+            display: none;
+        }
+
+        #quiz #quiz-ranking-note,
+        #quiz #quiz-ranking-empty,
+        #quiz #quiz-ranking-message {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+        }
+
+        #quiz #quiz-ranking-list {
+            margin: 0.75rem 0;
+            padding-left: 1.3rem;
+            color: var(--color-text-primary);
+            display: grid;
+            gap: 0.35rem;
+        }
+
+        #quiz #quiz-ranking-list li.is-pay-beer {
+            font-weight: 700;
+            color: var(--color-accent);
+        }
+
         #quiz button:focus-visible {
             outline: 3px solid var(--color-accent);
             outline-offset: 2px;
@@ -921,7 +953,14 @@
                 <p id="quiz-result" aria-live="polite"></p>
                 <div class="quiz-actions">
                     <button type="button" class="quiz-button" data-action="back">Zur Spieler-Auswahl</button>
-                    <button type="button" class="quiz-button" disabled hidden>Ranking anzeigen</button>
+                    <button type="button" class="quiz-button" data-action="toggle-ranking">Ranking anzeigen</button>
+                </div>
+                <div id="quiz-ranking" class="is-hidden" aria-hidden="true">
+                    <p id="quiz-ranking-note">Ranking gilt pro Gerät/Browser.</p>
+                    <p id="quiz-ranking-empty">Noch keine Ergebnisse vorhanden.</p>
+                    <ol id="quiz-ranking-list"></ol>
+                    <button type="button" class="quiz-button" data-action="reset-ranking">Ranking zurücksetzen</button>
+                    <p id="quiz-ranking-message" aria-live="polite"></p>
                 </div>
             </div>
         </div>
@@ -1002,6 +1041,7 @@
         // Quiz Logic
         const makkQuiz = (() => {
             const PLAYERS = ["Adriana", "Freddy", "Jason", "Linda"];
+            const STORAGE_KEY = "doubleDateQuizScoresV1";
 
             const QUESTIONS = [
               {
@@ -1077,12 +1117,52 @@
             ];
 
             let state = { selectedPlayer: '', qIndex: 0, score: 0, answered: false };
+            let scoresByPlayer = {};
+            let isRankingVisible = false;
             let root;
 
             const focusFirstPlayer = () => root.querySelector('[data-action="select-player"]')?.focus();
             const focusFirstOption = () => root.querySelector('#quiz-options .quiz-option-button')?.focus();
             const focusNext = () => root.querySelector('#quiz-next')?.focus();
             const focusResultBack = () => root.querySelector('[data-view="result"] [data-action="back"]')?.focus();
+
+            const safeParse = (jsonString) => {
+                if (!jsonString) return {};
+                try {
+                    const parsed = JSON.parse(jsonString);
+                    return parsed && typeof parsed === 'object' ? parsed : {};
+                } catch (_error) {
+                    return {};
+                }
+            };
+
+            const validateEntry = (entry) => {
+                if (!entry || typeof entry !== 'object') return false;
+                return Number.isFinite(entry.score) && Number.isFinite(entry.finishedAt);
+            };
+
+            const loadScores = () => {
+                const parsed = safeParse(localStorage.getItem(STORAGE_KEY));
+                const sanitized = {};
+                Object.entries(parsed).forEach(([playerName, entry]) => {
+                    if (typeof playerName === 'string' && validateEntry(entry)) {
+                        sanitized[playerName] = { score: entry.score, finishedAt: entry.finishedAt };
+                    }
+                });
+                return sanitized;
+            };
+
+            const saveScores = (scores) => {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(scores));
+            };
+
+            const sortRanking = (entries) => {
+                return entries.sort((a, b) => {
+                    if (b.score !== a.score) return b.score - a.score;
+                    if (a.finishedAt !== b.finishedAt) return a.finishedAt - b.finishedAt;
+                    return a.name.localeCompare(b.name);
+                });
+            };
 
             const setView = (view) => {
                 root.querySelectorAll('[data-view]').forEach(panel => panel.classList.toggle('is-active', panel.dataset.view === view));
@@ -1142,8 +1222,61 @@
 
             const showResult = () => {
                 setView('result');
+                scoresByPlayer[state.selectedPlayer] = { score: state.score, finishedAt: Date.now() };
+                saveScores(scoresByPlayer);
                 root.querySelector('#quiz-result').textContent = `${state.selectedPlayer}: ${state.score}/${QUESTIONS.length}`;
+                isRankingVisible = false;
+                root.querySelector('#quiz-ranking').classList.add('is-hidden');
+                root.querySelector('#quiz-ranking').setAttribute('aria-hidden', 'true');
+                root.querySelector('#quiz-ranking-message').textContent = '';
                 focusResultBack();
+            };
+
+            const renderRanking = () => {
+                const ranking = root.querySelector('#quiz-ranking');
+                const list = root.querySelector('#quiz-ranking-list');
+                const emptyState = root.querySelector('#quiz-ranking-empty');
+                const entries = Object.entries(scoresByPlayer).map(([name, value]) => ({
+                    name,
+                    score: value.score,
+                    finishedAt: value.finishedAt
+                }));
+                const sorted = sortRanking(entries);
+
+                list.textContent = '';
+                if (!sorted.length) {
+                    emptyState.textContent = 'Noch keine Ergebnisse vorhanden.';
+                    emptyState.hidden = false;
+                    return;
+                }
+
+                emptyState.hidden = true;
+                sorted.forEach((entry, index) => {
+                    const item = document.createElement('li');
+                    item.textContent = `${entry.name}: ${entry.score}/${QUESTIONS.length}`;
+                    if (index === 2 || index === 3) {
+                        item.classList.add('is-pay-beer');
+                    }
+                    list.appendChild(item);
+                });
+                ranking.querySelector('#quiz-ranking-note').textContent = 'Ranking gilt pro Gerät/Browser.';
+            };
+
+            const toggleRanking = () => {
+                isRankingVisible = !isRankingVisible;
+                const ranking = root.querySelector('#quiz-ranking');
+                ranking.classList.toggle('is-hidden', !isRankingVisible);
+                ranking.setAttribute('aria-hidden', String(!isRankingVisible));
+                root.querySelector('[data-action="toggle-ranking"]').textContent = isRankingVisible ? 'Ranking ausblenden' : 'Ranking anzeigen';
+                root.querySelector('#quiz-ranking-message').textContent = '';
+                if (isRankingVisible) renderRanking();
+            };
+
+            const resetRanking = () => {
+                localStorage.removeItem(STORAGE_KEY);
+                scoresByPlayer = {};
+                renderRanking();
+                root.querySelector('#quiz-ranking-message').textContent = 'Ranking wurde zurückgesetzt.';
             };
 
             const goNext = () => {
@@ -1177,11 +1310,14 @@
                 if (action === 'answer') handleAnswer(trigger);
                 if (action === 'next') goNext();
                 if (action === 'back') backToPlayer();
+                if (action === 'toggle-ranking') toggleRanking();
+                if (action === 'reset-ranking') resetRanking();
             };
 
             const init = () => {
                 root = document.querySelector('#quiz');
                 if (!root) return;
+                scoresByPlayer = loadScores();
                 root.addEventListener('click', onClick);
                 setView('player');
                 clearFeedback();
@@ -1237,4 +1373,3 @@
     </script>
 </body>
 </html>
-
