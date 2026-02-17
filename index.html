@@ -430,7 +430,7 @@
         }
 
         /* Quiz Section */
-        .quiz-container {
+        #quiz .quiz-container {
             background: var(--color-bg-secondary);
             padding: 3rem;
             border-radius: 20px;
@@ -440,7 +440,7 @@
             overflow: hidden;
         }
 
-        .quiz-container::before {
+        #quiz .quiz-container::before {
             content: '';
             position: absolute;
             top: 0;
@@ -450,122 +450,111 @@
             background: linear-gradient(90deg, var(--color-accent), var(--color-accent-secondary));
         }
 
-        .quiz-card {
+        #quiz [data-view] {
             display: none;
             animation: fadeIn 0.5s ease-out;
         }
 
-        .quiz-card.active {
+        #quiz [data-view].is-active {
             display: block;
         }
 
-        .quiz-question {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            color: var(--color-text-primary);
-            font-weight: 600;
-        }
-
-        .quiz-options {
+        #quiz .quiz-player-grid,
+        #quiz #quiz-options {
             display: grid;
             gap: 1rem;
-            margin-bottom: 2rem;
+            margin-top: 1.5rem;
         }
 
-        .quiz-option {
-            padding: 1.5rem;
-            background: var(--color-bg-primary);
+        #quiz .quiz-player-grid {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        }
+
+        #quiz .quiz-button,
+        #quiz .quiz-option-button {
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
             border: 2px solid var(--color-border);
-            border-radius: 15px;
+            background: var(--color-bg-primary);
+            color: var(--color-text-primary);
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 1.1rem;
+            text-align: left;
         }
 
-        .quiz-option:hover {
+        #quiz .quiz-button:hover,
+        #quiz .quiz-option-button:hover {
             border-color: var(--color-accent);
             background: var(--color-bg-tertiary);
-            transform: translateX(10px);
         }
 
-        .quiz-option.correct {
+        #quiz .quiz-option-button.correct {
             border-color: #00ff88;
             background: rgba(0, 255, 136, 0.1);
-            animation: correctPulse 0.5s ease;
         }
 
-        .quiz-option.wrong {
+        #quiz .quiz-option-button.wrong {
             border-color: #ff4444;
             background: rgba(255, 68, 68, 0.1);
-            animation: shake 0.5s ease;
         }
 
-        .quiz-result {
-            display: none;
-            text-align: center;
-            padding: 2rem;
-            background: var(--color-bg-tertiary);
-            border-radius: 15px;
-            margin-top: 2rem;
-        }
-
-        .quiz-result.show {
-            display: block;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .quiz-score {
-            font-size: 3rem;
-            color: var(--color-accent);
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .quiz-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--color-border);
-        }
-
-        .quiz-progress {
-            color: var(--color-text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .quiz-button {
-            padding: 0.8rem 2rem;
-            background: var(--color-accent);
-            color: #000;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .quiz-button:hover {
-            background: var(--color-accent-hover);
-            transform: scale(1.05);
-        }
-
-        .quiz-button:disabled {
-            opacity: 0.5;
+        #quiz .quiz-button:disabled,
+        #quiz .quiz-option-button:disabled {
+            opacity: 0.55;
             cursor: not-allowed;
             transform: none;
         }
 
-        @keyframes correctPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        #quiz .quiz-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
         }
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
+        #quiz #quiz-progress {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        #quiz #quiz-question {
+            font-size: 1.5rem;
+            color: var(--color-text-primary);
+            font-weight: 600;
+        }
+
+        #quiz #quiz-feedback {
+            min-height: 4.5rem;
+            margin-top: 1.25rem;
+            padding: 1rem;
+            border-radius: 12px;
+            background: var(--color-bg-tertiary);
+            border: 1px solid var(--color-border);
+        }
+
+        #quiz #quiz-feedback-title {
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 0.35rem;
+        }
+
+        #quiz #quiz-feedback-fact {
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+        }
+
+        #quiz #quiz-result {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: 1.25rem;
+        }
+
+        #quiz button:focus-visible {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
         }
 
         /* Modal */
@@ -902,74 +891,38 @@
     <section class="section" id="quiz">
         <h2 class="section-title">Know Your Venues</h2>
         <p style="text-align: center; color: var(--color-text-secondary); margin-bottom: 2rem;">Test your knowledge about tonight's cultural journey</p>
-        
+
         <div class="quiz-container">
-            <!-- Quiz Card 1 -->
-            <div class="quiz-card active" data-question="1">
-                <h3 class="quiz-question">How many female artists are featured in MAKK's "Louise Bourgeois bis Yoko Ono" jewelry exhibition?</h3>
-                <div class="quiz-options">
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">25 artists</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">30 artists</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, true)">45 artists</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">60 artists</div>
+            <div data-view="player" class="is-active">
+                <p style="color: var(--color-text-secondary);">Hallo + Platz 3 und 4 zahlen jeweils eine Runde Kölsch.</p>
+                <div class="quiz-player-grid">
+                    <button type="button" class="quiz-button" data-action="select-player" data-player="Adriana">Adriana</button>
+                    <button type="button" class="quiz-button" data-action="select-player" data-player="Freddy">Freddy</button>
+                    <button type="button" class="quiz-button" data-action="select-player" data-player="Jason">Jason</button>
+                    <button type="button" class="quiz-button" data-action="select-player" data-player="Linda">Linda</button>
                 </div>
             </div>
 
-            <!-- Quiz Card 2 -->
-            <div class="quiz-card" data-question="2">
-                <h3 class="quiz-question">What year was Brauerei zur Malzmühle founded?</h3>
-                <div class="quiz-options">
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">1798</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">1825</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, true)">1858</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">1901</div>
+            <div data-view="quiz">
+                <div id="quiz-progress"></div>
+                <h3 id="quiz-question"></h3>
+                <div id="quiz-options"></div>
+                <div id="quiz-feedback" role="status" aria-live="polite">
+                    <p id="quiz-feedback-title"></p>
+                    <p id="quiz-feedback-fact"></p>
+                </div>
+                <div class="quiz-actions">
+                    <button type="button" class="quiz-button" id="quiz-next" data-action="next" disabled>Weiter</button>
+                    <button type="button" class="quiz-button" data-action="back">Zur Spieler-Auswahl</button>
                 </div>
             </div>
 
-            <!-- Quiz Card 3 -->
-            <div class="quiz-card" data-question="3">
-                <h3 class="quiz-question">What makes UDUM's cuisine unique?</h3>
-                <div class="quiz-options">
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">Traditional German dishes with vegan options</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">Authentic Italian pizza</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, true)">100% vegan Vietnamese-Japanese fusion with creative plant-based sushi</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">Spanish tapas made vegan</div>
+            <div data-view="result">
+                <p id="quiz-result" aria-live="polite"></p>
+                <div class="quiz-actions">
+                    <button type="button" class="quiz-button" data-action="back">Zur Spieler-Auswahl</button>
+                    <button type="button" class="quiz-button" disabled hidden>Ranking anzeigen</button>
                 </div>
-            </div>
-
-            <!-- Quiz Card 4 -->
-            <div class="quiz-card" data-question="4">
-                <h3 class="quiz-question">Important: What payment method does UDUM accept?</h3>
-                <div class="quiz-options">
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">Cards only</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, true)">Cash only</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">Cards and digital wallets</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">All payment methods</div>
-                </div>
-            </div>
-
-            <!-- Quiz Card 5 -->
-            <div class="quiz-card" data-question="5">
-                <h3 class="quiz-question">Why is February 19 perfect timing for this date?</h3>
-                <div class="quiz-options">
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">It's Valentine's week</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, true)">First normal Thursday after Carnival—city is relaxed, museums reopen</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">Special museum discount day</div>
-                    <div class="quiz-option" onclick="checkAnswer(this, false)">Free entry to all venues</div>
-                </div>
-            </div>
-
-            <!-- Result -->
-            <div class="quiz-result" id="quizResult">
-                <div class="quiz-score" id="quizScore">0/5</div>
-                <h3 style="color: var(--color-text-primary); margin-bottom: 1rem;">Quiz Complete!</h3>
-                <p id="quizMessage" style="color: var(--color-text-secondary); font-size: 1.1rem;"></p>
-                <button class="quiz-button" onclick="restartQuiz()" style="margin-top: 2rem;">Retake Quiz</button>
-            </div>
-
-            <div class="quiz-nav">
-                <div class="quiz-progress" id="quizProgress">Question 1 of 5</div>
-                <button class="quiz-button" id="nextButton" onclick="nextQuestion()" disabled>Next Question</button>
             </div>
         </div>
     </section>
@@ -1047,108 +1000,198 @@
         });
 
         // Quiz Logic
-        let currentQuestion = 1;
-        let score = 0;
-        let answeredQuestions = 0;
+        const makkQuiz = (() => {
+            const PLAYERS = ["Adriana", "Freddy", "Jason", "Linda"];
 
-        function checkAnswer(element, isCorrect) {
-            // Disable all options after selection
-            const options = element.parentElement.querySelectorAll('.quiz-option');
-            options.forEach(opt => {
-                opt.style.pointerEvents = 'none';
-            });
+            const QUESTIONS = [
+              {
+                id: 1,
+                text: "During Act I of your date at the MAKK, you might notice the building's layout resembles a religious complex. Which historical structure's floor plan did architect Rudolf Schwarz consciously emulate?",
+                options: ["A Jesuit college", "A Roman temple", "The Cologne Cathedral", "A Minorite monastery"],
+                correctIndex: 3,
+                fact: "The museum was built on the site of a 13th-century monastery and reflects its U-shaped cloister orientation."
+              },
+              {
+                id: 2,
+                text: "If you are exploring the 'Faszination Schmuck' exhibition at the MAKK, you will see a focus on female creators. Which artist's jewelry is featured alongside Yoko Ono in this curatorial shift?",
+                options: ["Georgia O'Keeffe", "Louise Bourgeois", "Frida Kahlo", "Marina Abramović"],
+                correctIndex: 1,
+                fact: "The exhibition 'Von Louise Bourgeois bis Yoko Ono' highlights jewelry designed by 45 prominent female artists."
+              },
+              {
+                id: 3,
+                text: "Heading to Act II at the Brauerei zur Malzmühle, you might sit at the 'Clinton-Tisch.' What did US President Bill Clinton allegedly say upon his departure in 1999?",
+                options: ["Ein Kölsch, bitte", "Prost zusammen", "Kölle Alaaf", "Ich bin ein Kölsch"],
+                correctIndex: 3,
+                fact: "This quote is a play on JFK's famous Berlin speech and is used to align the President with Cologne's local identity."
+              },
+              {
+                id: 4,
+                text: "Inside the Malzmühle, you'll see a wooden booth called a 'Thekenschaf.' What was its historical nickname due to its appearance and function?",
+                options: ["The confessional", "The pulpit", "The monk's cell", "The altar"],
+                correctIndex: 0,
+                fact: "The booth's design allowed management to monitor staff and accounts, resembling a church confessional box."
+              },
+              {
+                id: 5,
+                text: "According to Act III, UDUM uses a specific starch to create a vegan salmon that mimics the consistency and 'fatty' mouthfeel of raw fish. What is this ingredient?",
+                options: ["Agar-agar", "Rice flour", "Tapioca", "Konjac"],
+                correctIndex: 2,
+                fact: "Tapioca is utilized to engineer a plant-based substitute that replicates the translucency and texture of salmon."
+              },
+              {
+                id: 6,
+                text: "UDUM is known for its 'Instagram-worthy' food presentation. What is the name of the popular 'Fusion Tapas' dish that features a vibrant pink dress of rice noodles?",
+                options: ["Sunset Sushi", "Magenta Maki", "Rose Summer Roll", "Pink Lady"],
+                correctIndex: 3,
+                fact: "The Pink Lady uses pink rice noodles to wrap tofu, mango, and herbs, often served with a lime-chili dip."
+              },
+              {
+                id: 7,
+                text: "UDUM occupies a space formerly held by which other vegan pioneer in the Mauritius-Viertel?",
+                options: ["Well Being", "Veggie Heaven", "Vegan Village", "Green Garden"],
+                correctIndex: 0,
+                fact: "UDUM moved into the location previously occupied by Well Being, reinforcing the area's reputation for ethical consumption."
+              },
+              {
+                id: 8,
+                text: "Starting Act IV at Little Link, you'll find a menu designed to guide you through a 'sensory world tour.' What physical format does this menu take?",
+                options: ["A Compass", "A Passport", "An Atlas", "A Flight Log"],
+                correctIndex: 2,
+                fact: "The menu is presented as an 'Atlas' with fictional lands representing different flavor profiles and ingredients."
+              },
+              {
+                id: 9,
+                text: "Little Link's founder, Stephan Hinz, uses advanced culinary equipment in his 'bar-laboratory.' Which device is used to create clarified, intense spirits for his drinks?",
+                options: ["Pressure cooker", "Centrifuge", "Bunsen burner", "Rotary evaporator"],
+                correctIndex: 3,
+                fact: "Hinz uses a rotary evaporator and other lab equipment to bridge the gap between the kitchen and the bar."
+              },
+              {
+                id: 10,
+                text: "In 2025, a significant change occurred in the Cologne brewery scene. Which large private brewery acquired the 'Mühlen Kölsch' brand from the Malzmühle gastronomy group?",
+                options: ["Reissdorf", "Gaffel", "Früh", "Peters"],
+                correctIndex: 1,
+                fact: "Gaffel purchased the Mühlenkölsch brand in June 2025."
+              }
+            ];
 
-            if (isCorrect) {
-                element.classList.add('correct');
-                score++;
-            } else {
-                element.classList.add('wrong');
-                // Show correct answer
-                options.forEach(opt => {
-                    if (opt.onclick.toString().includes('true')) {
-                        opt.classList.add('correct');
+            let state = { selectedPlayer: '', qIndex: 0, score: 0, answered: false };
+            let root;
+
+            const focusFirstPlayer = () => root.querySelector('[data-action="select-player"]')?.focus();
+            const focusFirstOption = () => root.querySelector('#quiz-options .quiz-option-button')?.focus();
+            const focusNext = () => root.querySelector('#quiz-next')?.focus();
+            const focusResultBack = () => root.querySelector('[data-view="result"] [data-action="back"]')?.focus();
+
+            const setView = (view) => {
+                root.querySelectorAll('[data-view]').forEach(panel => panel.classList.toggle('is-active', panel.dataset.view === view));
+            };
+
+            const clearFeedback = () => {
+                root.querySelector('#quiz-feedback-title').textContent = '';
+                root.querySelector('#quiz-feedback-fact').textContent = '';
+            };
+
+            const renderQuestion = () => {
+                clearFeedback();
+                state.answered = false;
+                const question = QUESTIONS[state.qIndex];
+                root.querySelector('#quiz-progress').textContent = `Frage ${state.qIndex + 1}/${QUESTIONS.length}`;
+                root.querySelector('#quiz-question').textContent = question.text;
+                const options = root.querySelector('#quiz-options');
+                options.textContent = '';
+                question.options.forEach((option, optionIndex) => {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'quiz-option-button';
+                    button.dataset.action = 'answer';
+                    button.dataset.optionIndex = String(optionIndex);
+                    button.textContent = option;
+                    options.appendChild(button);
+                });
+                root.querySelector('#quiz-next').disabled = true;
+                focusFirstOption();
+            };
+
+            const handleAnswer = (button) => {
+                if (state.answered) return;
+                const selectedIndex = Number(button.dataset.optionIndex);
+                const question = QUESTIONS[state.qIndex];
+                const optionButtons = root.querySelectorAll('#quiz-options .quiz-option-button');
+                optionButtons.forEach((optionButton, optionIndex) => {
+                    optionButton.disabled = true;
+                    if (optionIndex === question.correctIndex) {
+                        optionButton.classList.add('correct');
                     }
                 });
-            }
 
-            answeredQuestions++;
-            document.getElementById('nextButton').disabled = false;
-        }
-
-        function nextQuestion() {
-            if (currentQuestion < 5) {
-                // Hide current question
-                document.querySelector(`.quiz-card[data-question="${currentQuestion}"]`).classList.remove('active');
-                
-                // Show next question
-                currentQuestion++;
-                document.querySelector(`.quiz-card[data-question="${currentQuestion}"]`).classList.add('active');
-                
-                // Update progress
-                document.getElementById('quizProgress').textContent = `Question ${currentQuestion} of 5`;
-                
-                // Disable next button until answer selected
-                document.getElementById('nextButton').disabled = true;
-                
-                // Change button text on last question
-                if (currentQuestion === 5) {
-                    document.getElementById('nextButton').textContent = 'See Results';
+                if (selectedIndex !== question.correctIndex) {
+                    button.classList.add('wrong');
+                    root.querySelector('#quiz-feedback-title').textContent = `Leider falsch. Richtig wäre: ${question.options[question.correctIndex]}`;
+                } else {
+                    state.score += 1;
+                    root.querySelector('#quiz-feedback-title').textContent = 'Richtig!';
                 }
-            } else {
-                showResults();
-            }
-        }
 
-        function showResults() {
-            // Hide quiz nav
-            document.querySelector('.quiz-nav').style.display = 'none';
-            
-            // Hide all quiz cards
-            document.querySelectorAll('.quiz-card').forEach(card => {
-                card.classList.remove('active');
-            });
-            
-            // Show results
-            const resultDiv = document.getElementById('quizResult');
-            const scoreDiv = document.getElementById('quizScore');
-            const messageDiv = document.getElementById('quizMessage');
-            
-            scoreDiv.textContent = `${score}/5`;
-            
-            if (score === 5) {
-                messageDiv.innerHTML = '🎉 Perfect! You\'re ready for an extraordinary evening!';
-            } else if (score >= 3) {
-                messageDiv.innerHTML = '👏 Great job! You know your venues well!';
-            } else {
-                messageDiv.innerHTML = '💡 Good start! The evening will be even better than the quiz!';
-            }
-            
-            resultDiv.classList.add('show');
-        }
+                root.querySelector('#quiz-feedback-fact').textContent = question.fact;
+                state.answered = true;
+                root.querySelector('#quiz-next').disabled = false;
+                focusNext();
+            };
 
-        function restartQuiz() {
-            currentQuestion = 1;
-            score = 0;
-            answeredQuestions = 0;
-            
-            // Reset all options
-            document.querySelectorAll('.quiz-option').forEach(opt => {
-                opt.classList.remove('correct', 'wrong');
-                opt.style.pointerEvents = 'auto';
-            });
-            
-            // Hide results
-            document.getElementById('quizResult').classList.remove('show');
-            
-            // Show first question
-            document.querySelector('.quiz-card[data-question="1"]').classList.add('active');
-            
-            // Reset nav
-            document.querySelector('.quiz-nav').style.display = 'flex';
-            document.getElementById('quizProgress').textContent = 'Question 1 of 5';
-            document.getElementById('nextButton').textContent = 'Next Question';
-            document.getElementById('nextButton').disabled = true;
-        }
+            const showResult = () => {
+                setView('result');
+                root.querySelector('#quiz-result').textContent = `${state.selectedPlayer}: ${state.score}/${QUESTIONS.length}`;
+                focusResultBack();
+            };
+
+            const goNext = () => {
+                if (!state.answered) return;
+                state.qIndex += 1;
+                if (state.qIndex >= QUESTIONS.length) {
+                    showResult();
+                    return;
+                }
+                renderQuestion();
+            };
+
+            const startQuiz = (player) => {
+                if (!PLAYERS.includes(player)) return;
+                state = { selectedPlayer: player, qIndex: 0, score: 0, answered: false };
+                setView('quiz');
+                renderQuestion();
+            };
+
+            const backToPlayer = () => {
+                setView('player');
+                clearFeedback();
+                focusFirstPlayer();
+            };
+
+            const onClick = (event) => {
+                const trigger = event.target.closest('[data-action]');
+                if (!trigger || !root.contains(trigger)) return;
+                const { action } = trigger.dataset;
+                if (action === 'select-player') startQuiz(trigger.dataset.player || '');
+                if (action === 'answer') handleAnswer(trigger);
+                if (action === 'next') goNext();
+                if (action === 'back') backToPlayer();
+            };
+
+            const init = () => {
+                root = document.querySelector('#quiz');
+                if (!root) return;
+                root.addEventListener('click', onClick);
+                setView('player');
+                clearFeedback();
+                focusFirstPlayer();
+            };
+
+            return { init };
+        })();
+
+        document.addEventListener('DOMContentLoaded', makkQuiz.init);
 
         // Modal Functions
         function openModal(imageSrc) {
