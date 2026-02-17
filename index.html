@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Double Date — February 19, 2026</title>
+    <style>
+        :root {
+            --color-bg-primary: #000000;
+            --color-bg-secondary: #0d0d0d;
+            --color-bg-tertiary: #1a1a1a;
+            --color-accent: #ff6b35;
+            --color-accent-hover: #ff8c5a;
+            --color-accent-secondary: #00d9ff;
+            --color-text-primary: #ffffff;
+            --color-text-secondary: #8a8a8a;
+            --color-border: rgba(255, 107, 53, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: var(--color-bg-primary);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000000;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.25;
+            z-index: 0;
+            filter: grayscale(30%);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.8) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out;
+            letter-spacing: -2px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero-date {
+            font-size: 1.2rem;
+            color: var(--color-accent);
+            margin-bottom: 3rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--color-accent);
+            color: var(--color-bg-primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out 0.6s both;
+            border: 2px solid var(--color-accent);
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: var(--color-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid var(--color-border);
+            display: none;
+        }
+
+        .nav.visible {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-accent);
+        }
+
+        /* Section Container */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--color-accent);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--color-border);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            padding: 2rem;
+            background: var(--color-bg-secondary);
+            border-radius: 20px;
+            border: 1px solid var(--color-border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-accent-secondary) 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-content:hover::before {
+            transform: scaleX(1);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(255, 107, 53, 0.2);
+            border-color: var(--color-accent);
+        }
+
+        .venue-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .venue-link:hover {
+            color: var(--color-accent-hover);
+            gap: 0.75rem;
+        }
+
+        .venue-link::after {
+            content: '→';
+            font-size: 1.2rem;
+        }
+
+        .timeline-time {
+            color: var(--color-accent);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .timeline-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-text-primary);
+        }
+
+        .timeline-description {
+            color: var(--color-text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .timeline-icon {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            z-index: 10;
+            box-shadow: 0 0 0 4px var(--color-bg-primary);
+        }
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Info Cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .info-card {
+            background: var(--color-bg-secondary);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--color-border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-secondary));
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .info-card:hover::before {
+            opacity: 1;
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: transparent;
+            box-shadow: 0 25px 60px rgba(255, 107, 53, 0.3);
+        }
+
+        .info-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--color-accent);
+        }
+
+        .info-text {
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Quiz Section */
+        .quiz-container {
+            background: var(--color-bg-secondary);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid var(--color-border);
+            margin-top: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-accent), var(--color-accent-secondary));
+        }
+
+        .quiz-card {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .quiz-card.active {
+            display: block;
+        }
+
+        .quiz-question {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--color-text-primary);
+            font-weight: 600;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-option {
+            padding: 1.5rem;
+            background: var(--color-bg-primary);
+            border: 2px solid var(--color-border);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--color-accent);
+            background: var(--color-bg-tertiary);
+            transform: translateX(10px);
+        }
+
+        .quiz-option.correct {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+            animation: correctPulse 0.5s ease;
+        }
+
+        .quiz-option.wrong {
+            border-color: #ff4444;
+            background: rgba(255, 68, 68, 0.1);
+            animation: shake 0.5s ease;
+        }
+
+        .quiz-result {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            background: var(--color-bg-tertiary);
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+
+        .quiz-result.show {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .quiz-score {
+            font-size: 3rem;
+            color: var(--color-accent);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .quiz-progress {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .quiz-button {
+            padding: 0.8rem 2rem;
+            background: var(--color-accent);
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-button:hover {
+            background: var(--color-accent-hover);
+            transform: scale(1.05);
+        }
+
+        .quiz-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        @keyframes correctPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            max-width: 900px;
+            width: 100%;
+            position: relative;
+        }
+
+        .modal-content img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: transparent;
+            border: none;
+            color: var(--color-text-primary);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--color-accent);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section {
+                padding: 4rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                flex-direction: column !important;
+                align-items: flex-start;
+                padding-left: 70px;
+            }
+
+            .timeline-content {
+                width: 100%;
+            }
+
+            .timeline-icon {
+                left: 30px;
+            }
+
+            .nav-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-content">
+            <div style="font-weight: 600; color: var(--color-accent);">February 19, 2026</div>
+            <ul class="nav-links">
+                <li><a href="#route">Route</a></li>
+                <li><a href="#venues">Venues</a></li>
+                <li><a href="#checklist">Checklist</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>An Evening in Cologne</h1>
+            <p class="hero-subtitle">Art · Culture · Culinary Excellence</p>
+            <p class="hero-date">Thursday, February 19, 2026</p>
+            <a href="#route" class="cta-button">Discover the Route</a>
+        </div>
+    </section>
+
+    <!-- Route Section -->
+    <section class="section" id="route">
+        <h2 class="section-title">The Journey</h2>
+        
+        <div class="timeline">
+            <!-- Act I -->
+            <div class="timeline-item">
+                <div class="timeline-icon">🎨</div>
+                <div class="timeline-content">
+                    <div class="timeline-time">16:00 — ACT I</div>
+                    <h3 class="timeline-title">MAKK — Museum für Angewandte Kunst</h3>
+                    <p class="timeline-description">
+                        Three exhibitions in one visit: "Kunst + Design im Dialog" (permanent collection), "Faszination Schmuck — 7000 Jahre" (jewelry across millennia), and the special exhibition "Von Louise Bourgeois bis Yoko Ono" featuring jewelry designs by 45 female artists. Feminist, avant-garde, visually stunning.
+                    </p>
+                    <p style="color: var(--color-accent); font-size: 0.9rem;">
+                        📍 An der Rechtschule 7 · Thu 10:00–18:00 · €7 (combo ticket, all exhibitions)
+                    </p>
+                    <a href="https://makk.de/besuchen/ausstellungen/sonderausstellungen/von-louise-bourgeois-bis-yoko-ono" target="_blank" rel="noopener noreferrer" class="venue-link">Explore MAKK</a>
+                </div>
+            </div>
+
+            <!-- Act II -->
+            <div class="timeline-item">
+                <div class="timeline-icon">🍺</div>
+                <div class="timeline-content">
+                    <div class="timeline-time">18:00 — ACT II</div>
+                    <h3 class="timeline-title">Brauerei zur Malzmühle</h3>
+                    <p class="timeline-description">
+                        Traditional Cologne brewery since 1858. Fifth generation family-run, serving Mühlen Kölsch—considered among connoisseurs as the most characterful Kölsch in the city. Classic Brauhaus atmosphere on the historic Heumarkt, authentic kölsche cuisine. One hour for atmosphere and a few rounds.
+                    </p>
+                    <p style="color: var(--color-accent); font-size: 0.9rem;">
+                        📍 Heumarkt 6 · Thu 12:00–23:00 · Authentic Brauhaus
+                    </p>
+                    <a href="https://brauereizurmalzmuehle.de" target="_blank" rel="noopener noreferrer" class="venue-link">Visit Malzmühle</a>
+                </div>
+            </div>
+
+            <!-- Act III -->
+            <div class="timeline-item">
+                <div class="timeline-icon">🍣</div>
+                <div class="timeline-content">
+                    <div class="timeline-time">19:30 — ACT III</div>
+                    <h3 class="timeline-title">UDUM — Vegan Asian Fusion</h3>
+                    <p class="timeline-description">
+                        100% vegan Vietnamese-Japanese fusion. Sushi creations with vegan salmon from tapioka, fusion tapas-style sharing plates, Instagram-worthy presentation. Creative, stylish, intimate atmosphere perfect for conversation. Note: Cash only.
+                    </p>
+                    <p style="color: var(--color-accent); font-size: 0.9rem;">
+                        📍 Am Rinkenpfuhl 55 · Thu 11:30–23:00 · Reserve: +49 221 16931104 · 💵 Cash only
+                    </p>
+                    <a href="https://www.udum.de" target="_blank" rel="noopener noreferrer" class="venue-link">View UDUM</a>
+                </div>
+            </div>
+
+            <!-- Act IV -->
+            <div class="timeline-item">
+                <div class="timeline-icon">🍸</div>
+                <div class="timeline-content">
+                    <div class="timeline-time">21:30 — ACT IV</div>
+                    <h3 class="timeline-title">Little Link</h3>
+                    <p class="timeline-description">
+                        Award-winning cocktails in the Belgian Quarter. House-made ingredients, intimate lighting, conversation-friendly atmosphere. The perfect close to an extraordinary evening.
+                    </p>
+                    <p style="color: var(--color-accent); font-size: 0.9rem;">
+                        📍 Maastrichter Str. 20 · Sun–Thu 17:00–00:30
+                    </p>
+                    <a href="https://www.littlelink.de/kontakt" target="_blank" rel="noopener noreferrer" class="venue-link">Visit Little Link</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Venues Gallery -->
+    <section class="section" id="venues">
+        <h2 class="section-title">The Venues</h2>
+        
+        <div class="gallery">
+            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=1200&q=80')">
+                <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=600&q=80" alt="MAKK Museum">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">MAKK Museum</div>
+                    <p style="font-size: 0.9rem; color: var(--color-text-secondary);">Design & jewelry exhibitions</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1618183479302-1e0aa382c36b?w=1200&q=80')">
+                <img src="https://images.unsplash.com/photo-1618183479302-1e0aa382c36b?w=600&q=80" alt="Kölsch Beer">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">Brauerei zur Malzmühle</div>
+                    <p style="font-size: 0.9rem; color: var(--color-text-secondary);">Traditional Cologne brewery</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1617093727343-374698b1b08d?w=1200&q=80')">
+                <img src="https://images.unsplash.com/photo-1617093727343-374698b1b08d?w=600&q=80" alt="Vegan Sushi">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">UDUM</div>
+                    <p style="font-size: 0.9rem; color: var(--color-text-secondary);">Vegan Asian fusion artistry</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=1200&q=80')">
+                <img src="https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=600&q=80" alt="Street Art Belgian Quarter">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">Belgian Quarter</div>
+                    <p style="font-size: 0.9rem; color: var(--color-text-secondary);">Cologne's vibrant cultural heart</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=1200&q=80')">
+                <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600&q=80" alt="Urban Art Ehrenfeld">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">Ehrenfeld District</div>
+                    <p style="font-size: 0.9rem; color: var(--color-text-secondary);">Creative urban exploration</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1536935338788-846bb9981813?w=1200&q=80')">
+                <img src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=600&q=80" alt="Cocktail Culture">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">Little Link</div>
+                    <p style="font-size: 0.9rem; color: var(--color-text-secondary);">Award-winning cocktail artistry</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why This Works -->
+    <section class="section">
+        <h2 class="section-title">Why This Experience</h2>
+        
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="info-icon">🎭</div>
+                <h3 class="info-title">Cultural Bridge</h3>
+                <p class="info-text">
+                    MAKK's "Louise Bourgeois bis Yoko Ono" celebrates 45 female artists through jewelry design—feminist, avant-garde, and visually stunning. Art as wearable identity and cultural statement.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">🌆</div>
+                <h3 class="info-title">Post-Carnival Timing</h3>
+                <p class="info-text">
+                    February 19 is the first normal Thursday after Carnival. The city is relaxed, restaurants aren't overcrowded, the atmosphere is perfect.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">🍽️</div>
+                <h3 class="info-title">Sharing Concept</h3>
+                <p class="info-text">
+                    UDUM's fusion tapas-style plates and Malzmühle's communal Brauhaus vibe break down formal barriers. Reach for food together, pass Kölsch, create natural interaction. No awkward pauses.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">🗺️</div>
+                <h3 class="info-title">Flexible Route</h3>
+                <p class="info-text">
+                    The Belgian Quarter offers 10+ bars and restaurants within 200m. Spontaneous replanning? No stress—just walk to the next spot.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">✨</div>
+                <h3 class="info-title">Quality Over Quantity</h3>
+                <p class="info-text">
+                    Four carefully chosen experiences. Better to truly arrive at each location than to rush through a packed itinerary.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">🎨</div>
+                <h3 class="info-title">Artsy, Not Pretentious</h3>
+                <p class="info-text">
+                    Every venue balances sophistication with approachability. Young professional vibe—no art history degree required.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Game -->
+    <section class="section" id="quiz">
+        <h2 class="section-title">Know Your Venues</h2>
+        <p style="text-align: center; color: var(--color-text-secondary); margin-bottom: 2rem;">Test your knowledge about tonight's cultural journey</p>
+        
+        <div class="quiz-container">
+            <!-- Quiz Card 1 -->
+            <div class="quiz-card active" data-question="1">
+                <h3 class="quiz-question">How many female artists are featured in MAKK's "Louise Bourgeois bis Yoko Ono" jewelry exhibition?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">25 artists</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">30 artists</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">45 artists</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">60 artists</div>
+                </div>
+            </div>
+
+            <!-- Quiz Card 2 -->
+            <div class="quiz-card" data-question="2">
+                <h3 class="quiz-question">What year was Brauerei zur Malzmühle founded?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">1798</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">1825</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">1858</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">1901</div>
+                </div>
+            </div>
+
+            <!-- Quiz Card 3 -->
+            <div class="quiz-card" data-question="3">
+                <h3 class="quiz-question">What makes UDUM's cuisine unique?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Traditional German dishes with vegan options</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Authentic Italian pizza</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">100% vegan Vietnamese-Japanese fusion with creative plant-based sushi</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Spanish tapas made vegan</div>
+                </div>
+            </div>
+
+            <!-- Quiz Card 4 -->
+            <div class="quiz-card" data-question="4">
+                <h3 class="quiz-question">Important: What payment method does UDUM accept?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Cards only</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">Cash only</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Cards and digital wallets</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">All payment methods</div>
+                </div>
+            </div>
+
+            <!-- Quiz Card 5 -->
+            <div class="quiz-card" data-question="5">
+                <h3 class="quiz-question">Why is February 19 perfect timing for this date?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">It's Valentine's week</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">First normal Thursday after Carnival—city is relaxed, museums reopen</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Special museum discount day</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Free entry to all venues</div>
+                </div>
+            </div>
+
+            <!-- Result -->
+            <div class="quiz-result" id="quizResult">
+                <div class="quiz-score" id="quizScore">0/5</div>
+                <h3 style="color: var(--color-text-primary); margin-bottom: 1rem;">Quiz Complete!</h3>
+                <p id="quizMessage" style="color: var(--color-text-secondary); font-size: 1.1rem;"></p>
+                <button class="quiz-button" onclick="restartQuiz()" style="margin-top: 2rem;">Retake Quiz</button>
+            </div>
+
+            <div class="quiz-nav">
+                <div class="quiz-progress" id="quizProgress">Question 1 of 5</div>
+                <button class="quiz-button" id="nextButton" onclick="nextQuestion()" disabled>Next Question</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Reference -->
+    <section class="section" style="background: var(--color-bg-secondary); padding: 4rem 2rem; border-radius: 20px; border: 1px solid var(--color-border);">
+        <h2 class="section-title">Quick Reference</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
+            <div>
+                <h3 style="color: var(--color-accent); margin-bottom: 1rem;">📍 Key Addresses</h3>
+                <p style="color: var(--color-text-secondary); line-height: 2;">
+                    MAKK: An der Rechtschule 7<br>
+                    Malzmühle: Heumarkt 6<br>
+                    UDUM: Am Rinkenpfuhl 55<br>
+                    Little Link: Maastrichter Str. 20
+                </p>
+            </div>
+
+            <div>
+                <h3 style="color: var(--color-accent); margin-bottom: 1rem;">⏰ Timeline</h3>
+                <p style="color: var(--color-text-secondary); line-height: 2;">
+                    16:00 — MAKK Museum<br>
+                    18:00 — Brauerei<br>
+                    19:30 — UDUM Dinner<br>
+                    21:30 — Cocktails
+                </p>
+            </div>
+
+            <div>
+                <h3 style="color: var(--color-accent); margin-bottom: 1rem;">🚇 Transport</h3>
+                <p style="color: var(--color-text-secondary); line-height: 2;">
+                    All venues within walking distance<br>
+                    10-12 min walks between stops<br>
+                    No transport needed · Pure city stroll
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="text-align: center; padding: 4rem 2rem; color: var(--color-text-secondary);">
+        <p style="margin-bottom: 1rem;">An evening crafted for connection, culture, and cuisine</p>
+        <p style="font-size: 0.9rem;">February 19, 2026 · Cologne, Germany</p>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="modal" onclick="closeModal()">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <img id="modalImage" src="" alt="Venue">
+        </div>
+    </div>
+
+    <script>
+        // Sticky Navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('nav');
+            if (window.scrollY > window.innerHeight - 100) {
+                nav.classList.add('visible');
+            } else {
+                nav.classList.remove('visible');
+            }
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Quiz Logic
+        let currentQuestion = 1;
+        let score = 0;
+        let answeredQuestions = 0;
+
+        function checkAnswer(element, isCorrect) {
+            // Disable all options after selection
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+
+            if (isCorrect) {
+                element.classList.add('correct');
+                score++;
+            } else {
+                element.classList.add('wrong');
+                // Show correct answer
+                options.forEach(opt => {
+                    if (opt.onclick.toString().includes('true')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+
+            answeredQuestions++;
+            document.getElementById('nextButton').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < 5) {
+                // Hide current question
+                document.querySelector(`.quiz-card[data-question="${currentQuestion}"]`).classList.remove('active');
+                
+                // Show next question
+                currentQuestion++;
+                document.querySelector(`.quiz-card[data-question="${currentQuestion}"]`).classList.add('active');
+                
+                // Update progress
+                document.getElementById('quizProgress').textContent = `Question ${currentQuestion} of 5`;
+                
+                // Disable next button until answer selected
+                document.getElementById('nextButton').disabled = true;
+                
+                // Change button text on last question
+                if (currentQuestion === 5) {
+                    document.getElementById('nextButton').textContent = 'See Results';
+                }
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            // Hide quiz nav
+            document.querySelector('.quiz-nav').style.display = 'none';
+            
+            // Hide all quiz cards
+            document.querySelectorAll('.quiz-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            // Show results
+            const resultDiv = document.getElementById('quizResult');
+            const scoreDiv = document.getElementById('quizScore');
+            const messageDiv = document.getElementById('quizMessage');
+            
+            scoreDiv.textContent = `${score}/5`;
+            
+            if (score === 5) {
+                messageDiv.innerHTML = '🎉 Perfect! You\'re ready for an extraordinary evening!';
+            } else if (score >= 3) {
+                messageDiv.innerHTML = '👏 Great job! You know your venues well!';
+            } else {
+                messageDiv.innerHTML = '💡 Good start! The evening will be even better than the quiz!';
+            }
+            
+            resultDiv.classList.add('show');
+        }
+
+        function restartQuiz() {
+            currentQuestion = 1;
+            score = 0;
+            answeredQuestions = 0;
+            
+            // Reset all options
+            document.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('correct', 'wrong');
+                opt.style.pointerEvents = 'auto';
+            });
+            
+            // Hide results
+            document.getElementById('quizResult').classList.remove('show');
+            
+            // Show first question
+            document.querySelector('.quiz-card[data-question="1"]').classList.add('active');
+            
+            // Reset nav
+            document.querySelector('.quiz-nav').style.display = 'flex';
+            document.getElementById('quizProgress').textContent = 'Question 1 of 5';
+            document.getElementById('nextButton').textContent = 'Next Question';
+            document.getElementById('nextButton').disabled = true;
+        }
+
+        // Modal Functions
+        function openModal(imageSrc) {
+            const modal = document.getElementById('modal');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = imageSrc;
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('active');
+        }
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.timeline-item, .gallery-item, .info-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
+
