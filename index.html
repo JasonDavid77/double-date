@@ -956,6 +956,9 @@
                     <button type="button" class="quiz-button" data-action="select-player" data-player="Jason">Jason</button>
                     <button type="button" class="quiz-button" data-action="select-player" data-player="Linda">Linda</button>
                 </div>
+                <div class="quiz-actions">
+                    <button type="button" class="quiz-button" data-action="toggle-ranking">Show ranking</button>
+                </div>
             </div>
 
             <div data-view="quiz">
@@ -978,13 +981,14 @@
                     <button type="button" class="quiz-button" data-action="back">Back to players</button>
                     <button type="button" class="quiz-button" data-action="toggle-ranking">Show ranking</button>
                 </div>
-                <div id="quiz-ranking" class="is-hidden" aria-hidden="true">
-                    <p id="quiz-ranking-note">Ranking is saved on this device/browser.</p>
-                    <p id="quiz-ranking-empty">No results yet.</p>
-                    <ol id="quiz-ranking-list"></ol>
-                    <button type="button" class="quiz-button" data-action="reset-ranking">Reset ranking</button>
-                    <p id="quiz-ranking-message" aria-live="polite"></p>
-                </div>
+            </div>
+
+            <div id="quiz-ranking" class="is-hidden" aria-hidden="true">
+                <p id="quiz-ranking-note">Ranking is saved on this device/browser.</p>
+                <p id="quiz-ranking-empty">No results yet.</p>
+                <ol id="quiz-ranking-list"></ol>
+                <button type="button" class="quiz-button" data-action="reset-ranking">Reset ranking</button>
+                <p id="quiz-ranking-message" aria-live="polite"></p>
             </div>
         </div>
     </section>
@@ -1290,7 +1294,9 @@
                 const ranking = root.querySelector('#quiz-ranking');
                 ranking.classList.toggle('is-hidden', !isRankingVisible);
                 ranking.setAttribute('aria-hidden', String(!isRankingVisible));
-                root.querySelector('[data-action="toggle-ranking"]').textContent = isRankingVisible ? 'Hide ranking' : 'Show ranking';
+                root.querySelectorAll('[data-action="toggle-ranking"]').forEach((button) => {
+                    button.textContent = isRankingVisible ? 'Hide ranking' : 'Show ranking';
+                });
                 root.querySelector('#quiz-ranking-message').textContent = '';
                 if (isRankingVisible) renderRanking();
             };
