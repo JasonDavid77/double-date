@@ -118,11 +118,31 @@
             border: 2px solid var(--color-accent);
         }
 
+        .hero-ctas {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cta-button.cta-secondary {
+            background: var(--color-accent-secondary);
+            border-color: var(--color-accent-secondary);
+            color: var(--color-bg-primary);
+            font-size: 0.95rem;
+            padding: 10px 16px;
+        }
+
         .cta-button:hover {
             background: transparent;
             color: var(--color-accent);
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .cta-button.cta-secondary:hover {
+            color: var(--color-accent-secondary);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
         }
 
         /* Navigation */
@@ -734,8 +754,10 @@
             <h1>An Evening in Cologne</h1>
             <p class="hero-subtitle">Art · Culture · Culinary Excellence</p>
             <p class="hero-date">Thursday, February 19, 2026</p>
-            <a href="#route" class="cta-button">Discover the Route</a>
-            <a href="#quiz" class="cta-button">Take the Quiz</a>
+            <div class="hero-ctas">
+                <a href="#route" class="cta-button">Discover the Route</a>
+                <a href="#quiz" class="cta-button cta-secondary">Take the Quiz</a>
+            </div>
         </div>
     </section>
 
